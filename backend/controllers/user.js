@@ -1,8 +1,13 @@
 // importation du model de la bdd user.js
 const User = require("../models/user");
+
 const bcrypt = require("bcrypt");
 const cryptojs = require("crypto-js");
+const jwt = require('jsonwebtoken');
+
 require("dotenv").config({ path: "./config/.env" });
+
+
 // exporter la fonction signup qui permettra de créé un compte
 exports.signup = (req, res, next) => {
   //chiffrer l'email avant de l'envoyer a la base de données
@@ -40,7 +45,7 @@ exports.login = (req, res, next) => {
       if (!user) {
         return res
           .status(401)
-          .json({ err: "l'Utilisateurn'est pas enregistrer !" });
+          .json({ err: "l'Utilisateur n'est pas enregistrer !" });
       }
       bcrypt
         .compare(req.body.password, user.password)
@@ -48,9 +53,15 @@ exports.login = (req, res, next) => {
           if (!val) {
             return res.status(401).json({ err: "mot de passe incorrect !" });
           }
+          const newToken = jwt.sign(
+            { userId: user._id },
+            `${process.env.TOKEN_SECRET}`,
+            { expiresIn: "24h" }
+          );
+          res.setHeader("Authorization", "Bearer " + newToken);
           res.status(200).json({
             userId: user._id,
-            token: "TOKEN",
+            token: newToken,
           });
         })
         .catch((err) => res.status(500).json({ err }));

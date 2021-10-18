@@ -9,8 +9,8 @@ const userSchema =  mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
-      trimp: true,
+/*       lowercase: true,
+      trimp: true, */
      /*  validate: [isEmail], */
     },
     password: {
@@ -18,9 +18,9 @@ const userSchema =  mongoose.Schema(
       required: true,
     },
   },
-  {
+  /* {
     timestamps: true,
-  }
+  } */
 );
 //Securité pour ne pas enregistrer deux fois le meme mail dans la bdd
 userSchema.plugin(uniqueValidator);
