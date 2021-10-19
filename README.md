@@ -21,3 +21,8 @@ Une application dans laquelle les utilisateurs peuvent ajouter leurs sauces pré
     *  DB_USER_PASS= ( utilisateur:mot de passe )
     * CRYPTOJS_KEY_EMAIL=( votre clé de cryptage)
     * TOKEN_SECRET= ( clé de cryptage token) 
+
+
+<p>
+   <img align="center" src="https://media0.giphy.com/media/L8K62iTDkzGX6/giphy.gif"/>
+</p>
